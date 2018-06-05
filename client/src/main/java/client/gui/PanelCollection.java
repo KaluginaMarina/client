@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class PanelCollection extends JPanel {
+
     private ConcurrentLinkedDeque<Personage> heroes;
     private ArrayList<Personage> heroesFilter;
     private ClientGUI clientGUI;
@@ -27,7 +28,7 @@ public class PanelCollection extends JPanel {
     int x, y;
     ArrayList<Personage> heroesList;
     ArrayList<Ellipse> ellipses = new ArrayList<>();
-
+    Mouse mouse;
 
     public PanelCollection(ConcurrentLinkedDeque<Personage> heroes, ClientGUI clientGUI, StartButton startButton){
         this.heroes = heroes;
@@ -85,7 +86,6 @@ public class PanelCollection extends JPanel {
         if (left != 0) g.drawString(Integer.toString(right), x + h - 20, y+top*oy - 1);
 
         //рисуем коллекцию
-
         ConcurrentLinkedDeque<Personage> c = new ConcurrentLinkedDeque<>();
         c.addAll(heroes);
         while (!c.isEmpty()) {
@@ -160,13 +160,9 @@ public class PanelCollection extends JPanel {
             gg.setPaint(new GradientPaint((int) (ellipses.get(j).personage.x * ox + x + Math.abs(left * ox) - (ellipses.get(j).widthNow * coef + 12) / 2), (int) ((-ellipses.get(j).personage.y * oy + y + top * oy - (ellipses.get(j).personage.height * coef + 12) / 2)), color1, (int) (ellipses.get(j).personage.x * ox + x + Math.abs(left * ox + ellipses.get(j).widthNow * coef + 12) - (ellipses.get(j).widthNow * coef + 12) / 2), (int) (-ellipses.get(j).personage.y * oy + y + top * oy - (ellipses.get(j).widthNow * coef + 12) / 2), color2));
             gg.fill(new Ellipse2D.Double(ellipses.get(j).personage.x * ox + x + Math.abs(left * ox) - (ellipses.get(j).widthNow * coef + 12) / 2, y + top * oy - ellipses.get(j).personage.y * oy - (ellipses.get(j).widthNow * coef + 12) / 2, ellipses.get(j).widthNow * coef + 10, ellipses.get(j).widthNow * coef+ 10));
 
-            Mouse.getXY(clientGUI);
-
-            for (int k = 0; k < ellipses.size(); ++k){
-                if (Mouse.insideEllipse(clientGUI, ellipses.get(k))) {
-                    System.out.println(true);
-                }
-            }
+            //подписи к персонажам
+            g.setColor(Color.darkGray);
+            g.drawString(mouse.textForMouse, mouse.getXY().x, mouse.getXY().y);
         }
     }
 

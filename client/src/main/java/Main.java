@@ -1,4 +1,3 @@
-//import client.*;
 import client.Client;
 import client.gui.ClientGUI;
 import client.gui.PanelCollection;
@@ -17,8 +16,6 @@ public class Main {
         clientThread.start();
 
         ClientGUI gui = new ClientGUI(client, 100, 100, 1200, 600);
-        gui.setVisible(true);
-
         client.gui = gui;
     }
 }

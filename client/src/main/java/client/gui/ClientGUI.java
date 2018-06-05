@@ -36,7 +36,6 @@ public class ClientGUI extends JFrame{
         this.setBounds(xBounds, yBounds, widthBounds, heightBounds);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(800, 400));
-
         //Куча кода с Labelами
         JLabel filterLabel = new JLabel("Фильтры:");
         Font heading = new Font("Verdana", Font.BOLD, 14);
@@ -127,6 +126,9 @@ public class ClientGUI extends JFrame{
 
         //панель с картинкой
         panel = new PanelCollection(client.getHeroes(), this, startbutton);
+        Mouse mouse = new Mouse(this);
+        mouse.start();
+        panel.mouse = mouse;
         panel.draw(client.getHeroes());
 
         //панель с фильтром
@@ -279,6 +281,7 @@ public class ClientGUI extends JFrame{
 
         this.add(panel);
         this.add(filter);
-    }
 
+        this.setVisible(true);
+    }
 }
