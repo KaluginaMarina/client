@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'java'
+
+compileJava.options.encoding = 'UTF-8'
+
+mainClassName = 'Main'
+
+sourceCompatibility = 1.8
+
+jar {
+    baseName = 'Client'
+    version = '0.1'
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    from {
+        configurations.compile.collect {it.isDirectory() ? it : zipTree(it)}
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+}
+
+/*compileJava {
+    options.compilerArgs += ["-XDignore.symbol.file", "-Xdoclint:none", "-Xlint:none", "-nowarn"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+    options.encoding = "UTF-8"
+}*/
