@@ -63,13 +63,13 @@ class Ellipse implements ActionListener {
         if (this.filter) {
             if (this.direction == 'D') {
                 this.widthNow--;
-                if (Math.abs(this.width / 3.0 - this.widthNow) < 1) {
+                if (this.width / 3.0 > this.widthNow) {
                     this.direction = 'U';
                     this.timer.setDelay((int)(4000*3/(width*2*2)));
                 }
             } else {
                 this.widthNow++;
-                if (Math.abs(this.widthNow - this.width) < 1) {
+                if (this.widthNow > this.width) {
                     this.direction = 'D';
                     this.timer.setDelay((int)(4000*3/(width*2)));
                 }

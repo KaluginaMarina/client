@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClientGUI extends JFrame {
+public class ClientGUI extends JFrame{
 
     JCheckBox typeShortiesCheckBox;
     JCheckBox typeMoonlighterCheckBox;
@@ -124,7 +124,6 @@ public class ClientGUI extends JFrame {
         //Кучка необходимого кода
         GridLayout gridLayout = new GridLayout(1, 2);
         this.setLayout(gridLayout);
-        GridBagConstraints window = new GridBagConstraints();
 
         //панель с картинкой
         panel = new PanelCollection(client.getHeroes(), this, startbutton);
@@ -281,4 +280,5 @@ public class ClientGUI extends JFrame {
         this.add(panel);
         this.add(filter);
     }
+
 }

@@ -124,16 +124,16 @@ public class Client implements Runnable{
             System.out.println("Файл не найден");
         } catch (ConnectException e) {
             System.out.println("**Ошибка соединения.");
-            connectingGui(heroes);
+            connecting();
         } catch (SocketException e) {
             System.out.println("**Потеряно соединение с сервером.");
-            connectingGui(heroes);
+            connecting();
         } catch (NoSuchElementException e){
             System.out.println("**Потеряно соединение с сервером");
-            connectingGui(heroes);
+            connecting();
         } catch (EOFException e) {
             System.out.println("**Конец передачи");
-            connectingGui(heroes);
+            connecting();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -167,9 +167,8 @@ public class Client implements Runnable{
 
     /**
      * Клиент для работы без соединения
-     * @param heroes - коллекция, с которой работает клиент
      */
-    public void runWithoutConnection(ConcurrentLinkedDeque<Personage> heroes) {
+    public void runWithoutConnection() {
         Scanner input = new Scanner(System.in);
         String line;
         while (true) {
@@ -244,41 +243,49 @@ public class Client implements Runnable{
 
     /**
      * Метод, вызываемыый при ошибке подключения
-     * @param heroes - коллекция, с которой работает клиент
      */
-    public void connecting(ConcurrentLinkedDeque<Personage> heroes){
-        System.out.println("Попробовать еще раз? Y/N");
-        Scanner input = new Scanner(System.in);
-        String command = input.nextLine();
-        while (true) {
-            if (command.equals("Y")) {
-                run();
-            } else if (command.equals("N") || command.equals("quit")) {
-                System.out.println("Продолжить работу без соединения? Y/N");
-                while (true) {
-                    command = input.nextLine();
-                    if (command.equals("Y")) {
-                        runWithoutConnection(heroes);
-                        return;
-                    } else if (command.equals("N")) {
-                        input.close();
-                        return;
-                    } else {
-                        System.out.println("Неизвестная команда.");
-                    }
-                }
-            } else if (!command.equals("Y")) {
-                while (!command.equals("Y") && !command.equals("Y") || command.equals("quit")) {
-                    System.out.println("Неизвестная команда.");
-                    command = input.nextLine();
-                }
-            }
-        }
+    public void connecting(){
+
+        FrameErrorConnection fec = new FrameErrorConnection(this);
+        fec.setVisible(true);
+        gui.dispose();
+        gui = new ClientGUI(this, 100, 100, 1200, 600);
     }
 
-    public void connectingGui(ConcurrentLinkedDeque<Personage> heroes){
-        gui.setVisible(false);
-        FrameErrorConnection fec = new FrameErrorConnection();
-        fec.setVisible(true);
-    }
+
+
+
+
+
+//    public void connecting(ConcurrentLinkedDeque<Personage> heroes){
+//
+//        System.out.println("Попробовать еще раз? Y/N");
+//        Scanner input = new Scanner(System.in);
+//        String command = input.nextLine();
+//        while (true) {
+//            if (command.equals("Y")) {
+//                run();
+//            } else if (command.equals("N") || command.equals("quit")) {
+//                System.out.println("Продолжить работу без соединения? Y/N");
+//                while (true) {
+//                    command = input.nextLine();
+//                    if (command.equals("Y")) {
+//                        runWithoutConnection(heroes);
+//                        return;
+//                    } else if (command.equals("N")) {
+//                        input.close();
+//                        return;
+//                    } else {
+//                        System.out.println("Неизвестная команда.");
+//                    }
+//                }
+//            } else if (!command.equals("Y")) {
+//                while (!command.equals("Y") && !command.equals("Y") || command.equals("quit")) {
+//                    System.out.println("Неизвестная команда.");
+//                    command = input.nextLine();
+//                }
+//            }
+//        }
+
+
 }
